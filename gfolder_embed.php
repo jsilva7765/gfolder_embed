@@ -37,3 +37,15 @@ function gdrive_shortcode($atts, $content=null) {
 	return '<iframe src="https://drive.google.com/embeddedfolderview?id=' . $a['id'] . '#' . $a['style'] . '" frameborder="0" width="' . $a['width'] . '" height="' . $a['height'].'" scrolling="auto"> </iframe>';
 }
 add_shortcode( 'gdrive', 'gdrive_shortcode' );
+
+function add_gfolder_button() {
+    echo '<a href="#" id="insert-gdrive-folder" class="button">Embed GDrive Folder</a>';
+}
+
+add_action('media_buttons', 'add_gfolder_button', 15);
+
+function include_gdrive_button_js_file() {
+    wp_enqueue_script('media_button', plugin_dir_url( __FILE__ ) . 'gdrive_button.js', array('jquery'), '1.0', true);
+}
+
+add_action('wp_enqueue_media', 'include_gdrive_button_js_file');
